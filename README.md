@@ -15,4 +15,4 @@ For now, I have the solar panel mounted in a manner similar to the Sparkfun Wimp
 ##Libraries
 
 You will need the [xbee-arduino library](https://code.google.com/p/xbee-arduino/) as well as the pressure and humidity sensor libraries from Sparkfun. 
-For the BeagleBone Black, you will need (in addition to libraries bonescript, socketio, and serial installed by default) [xbee-api](https://www.npmjs.org/package/xbee-api) and [moment](https://www.npmjs.org/package/moment).
+For the BeagleBone Black, you will need (in addition to libraries bonescript, socketio, and serial installed by default) [xbee-api](https://www.npmjs.org/package/xbee-api) and [moment](https://www.npmjs.org/package/moment). Unless you are using the latest Bonescript from Github, you need to modify your serial.js file (found in /usr/local/lib/node_modules/bonescript) to include the following line at the end of the file: `exports.serialParsers = m.module.exists ? m.module.parsers : {};`
