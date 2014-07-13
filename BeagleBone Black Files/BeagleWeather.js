@@ -21,9 +21,6 @@ function onTxSerial(x){
 
 function onRxSerial(x){
     console.log('rx.event= '+ x.event);
-    if(x.event=='data'){
-        console.log('I got data!');
-    }
 }
 
 var reportTime=20;
