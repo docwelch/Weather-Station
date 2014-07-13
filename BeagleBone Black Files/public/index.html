@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+	<head>
+  		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+  		<title>BB Weather</title>
+  		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+	</head>
+	<body>
+	    <div data-role="page" id="page1">
+	        <div data-theme="a" data-role="header">
+    	        <h3> BeagleWeather</h3>
+	        </div>
+	        <div data-role="content">
+	            <h4>Current Data</h4>
+		        <ol>
+			    </ol>
+			</div>
+			<label for="reportTime">Frequency of report to Weather Underground (seconds)</label>
+            <input type="range" id="reportTime" name="reportTime" min="3" max="253" value="60" data-highlight="true" data-mini="true" onchange="reportTime(this.value)">
+            <input type="button" data-mini="true" value="Reset" onclick='restartStation(this)'>
+		</div>
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    	<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+  		<script src="/socket.io/socket.io.js"></script>
+		<script src="/weatherPage.js"></script>
+	</body>
+</html>
