@@ -198,7 +198,7 @@ function sendDataToWunderground(){
     var recordTime=moment.utc().format().replace(/\+.+/,'').replace(/T/,'+').replace(/:/g,'%3A');
     var requiredInfo='ID=YOURWEATHERSTATIONID&PASSWORD=YoUrPAssWoRD&dateutc='+recordTime+'&'//realtime=1&rtfreq=60&';
     var weatherData='humidity='+weatherArray[8]+'&tempf='+weatherArray[9]+'&baromin='+weatherArray[12]+'&dewptf='+weatherArray[13];
-    weatherData+='&windir='+weatherArray[0]+'&windspeedmph='+weatherArray[1]+'&windgustmph='+weatherArray[2]+'&windgustdir='+weatherArray[3];
+    weatherData+='&winddir='+weatherArray[0]+'&windspeedmph='+weatherArray[1]+'&windgustmph='+weatherArray[2]+'&windgustdir='+weatherArray[3];
     weatherData+='&windspdmph_avg2m='+weatherArray[4]+'&winddir_avg2m='+weatherArray[5]+'&windgustmph_10m'+weatherArray[6]+'&windgustdir_10m='+weatherArray[7];
     weatherData+='&rainin='+weatherArray[10]+'dailyrainin='+weatherArray[11];
     var pathString='/weatherstation/updateweatherstation.php?'+requiredInfo+weatherData+'&action=updateraw&realtime=1&rtfreq='+reportTime;
