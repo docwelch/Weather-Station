@@ -26,6 +26,14 @@ function onRxSerial(x){
 var reportTime=20;
 var changed=false;
 var reset=false;
+b.pinMode('USR0',b.OUTPUT);
+b.pinMode('USR1',b.OUTPUT);
+b.pinMode('USR2',b.OUTPUT);
+b.pinMode('USR3',b.OUTPUT);
+b.digitalWrite('USR0',b.LOW);
+b.digitalWrite('USR1',b.LOW);
+b.digitalWrite('USR2',b.LOW);
+b.digitalWrite('USR3',b.LOW);
 
 var http=require('http'),
 	path=require('path'),
@@ -174,7 +182,6 @@ xbeeAPI.on('frame_object',function(frame){
         }
         if (changed){
             changed=false;
-            //Change destination16 below to match your XBee on the weather station
             b.serialWrite(txport,xbeeAPI.buildFrame({
             	type: C.FRAME_TYPE.TX_REQUEST_16,
 	            destination16:'1002',
@@ -196,17 +203,22 @@ xbeeAPI.on('frame_object',function(frame){
 
 function sendDataToWunderground(){
     var recordTime=moment.utc().format().replace(/\+.+/,'').replace(/T/,'+').replace(/:/g,'%3A');
-    var requiredInfo='ID=YOURWEATHERSTATIONID&PASSWORD=YoUrPAssWoRD&dateutc='+recordTime+'&'//realtime=1&rtfreq=60&';
+    var requiredInfo='ID=YOURSTATIONID&PASSWORD=YouRPASswoRD&dateutc='+recordTime+'&'//realtime=1&rtfreq=60&';
     var weatherData='humidity='+weatherArray[8]+'&tempf='+weatherArray[9]+'&baromin='+weatherArray[12]+'&dewptf='+weatherArray[13];
     weatherData+='&winddir='+weatherArray[0]+'&windspeedmph='+weatherArray[1]+'&windgustmph='+weatherArray[2]+'&windgustdir='+weatherArray[3];
-    weatherData+='&windspdmph_avg2m='+weatherArray[4]+'&winddir_avg2m='+weatherArray[5]+'&windgustmph_10m'+weatherArray[6]+'&windgustdir_10m='+weatherArray[7];
-    weatherData+='&rainin='+weatherArray[10]+'dailyrainin='+weatherArray[11];
+    weatherData+='&windspdmph_avg2m='+weatherArray[4]+'&winddir_avg2m='+weatherArray[5]+'&windgustmph_10m='+weatherArray[6]+'&windgustdir_10m='+weatherArray[7];
+    weatherData+='&rainin='+weatherArray[10]+'&dailyrainin='+weatherArray[11];
     var pathString='/weatherstation/updateweatherstation.php?'+requiredInfo+weatherData+'&action=updateraw&realtime=1&rtfreq='+reportTime;
-    //console.log(pathString);
+    console.log('http://rtupdate.wunderground.com'+pathString);
     http.get('http://rtupdate.wunderground.com'+pathString, function(res){
+        b.digitalWrite('USR0',b.HIGH);
         console.log('Got response: '+res.statusCode);
+        setTimeout(ledOFF,1500);
     }).on('error',function(e){
         console.log('Got Error: '+e.message)
     });
 }
 
+function ledOFF(){
+    b.digitalWrite('USR0',b.LOW);
+}
